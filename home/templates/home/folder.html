@@ -1,0 +1,269 @@
+{% extends 'home/base.html'%}
+
+{% block inline_css %}
+  {% if title == "Home"%}
+    #Home {
+      background-color: #45f3ff;
+      color: #1c1c1c;
+    }
+  {% elif title == "Favourite" %}
+    #Favourite {
+      background-color: #45f3ff;
+      color: #1c1c1c;
+    }
+
+  {% endif %}
+
+  .opt{
+    transition:0.5s;
+    border-radius:100%;
+  }
+  .opt:hover{
+    background-color: #45f3ff;
+    color: #1c1c1c;
+  }
+
+  {% for i in folder%}
+    #{{i.foldername}} {
+      display: none;
+    }
+    
+    #{{i.foldername}}:checked ~ .option_list {
+      display: inline-block;
+    }
+
+    #{{i.foldername}}rename {
+        display:none;
+    }
+    #{{i.foldername}}form {
+      display:none;
+    }
+    #{{i.foldername}}areacover {
+      display: none;
+    }
+    #{{i.foldername}}formcover {
+      display: none;
+    }
+  {% endfor %}
+  
+  {% for i in files %}
+    #{{i.split_value}} {
+      display: none;
+    }
+    
+    #{{i.split_value}}:checked ~ .option_list {
+      display: inline-block;
+    }
+
+    #{{i.split_value}}rename {
+      display:none;
+    }
+    #{{i.split_value}}form {
+      display:none;
+    }
+    #{{i.split_value}}areacover {
+      display: none;
+    }
+    #{{i.split_value}}formcover {
+      display: none;
+    }
+  {% endfor %}
+{% endblock%}
+
+{% block content %}
+<div class="content">
+  {% for i in folder %}
+  
+  <div class="folder">
+    <a href="{% url 'folder' i.id %}">
+      <i class="fa-solid fa-folder"></i>
+      <h3>{{i.foldername}}</h3>
+    </a>
+    <input type="checkbox" id="{{i.foldername}}" />
+    <span class="opt">
+      <label for="{{i.foldername}}"><i class="fa-solid fa-ellipsis-vertical"></i></label>
+    </span>
+    <ul class="option_list">
+      {% if not i.favouriteFolder%} 
+      <li><a href="{% url 'toggleFavoriteFolder' i.id %}">Add to Favourites</a></li>
+      {% else %}
+      <li><a href="{% url 'toggleFavoriteFolder' i.id %}">Remove from Favourites</a></li>
+      {% endif %}
+      <li>
+        <input type="checkbox" id="{{i.foldername}}rename">
+        <label for="{{i.foldername}}rename">Rename</label>
+      </li>
+      <li><a href="{% url 'delete_folder' i.id %}">Delete</a></li>
+      <li><a href="{% url 'download_folder' folder_id=i.id %}">Download</a></li>
+      {% if i.publicFolder %}
+      <li><a href="{% url 'togglePublicFolder' i.id %}">Make it private</a></li>
+      {% else %}
+      <li><a href="{% url 'togglePublicFolder' i.id %}">Add to shared</a></li>
+      {% endif %}
+    </ul>
+  </div>
+  <div id="{{i.foldername}}areacover" class="areacover">
+    <label for="{{i.foldername}}"></label>
+  </div>
+  <div id="{{i.foldername}}formcover" class="formcover">
+    <label for="{{i.foldername}}rename"></label>
+  </div>
+  <form
+    action="{% url 'toggleRenameFolder' i.id %}"
+    method="POST"
+    id="{{i.foldername}}form"
+  >
+    {% csrf_token %}
+    <div class="inputbox">
+      <h1>Rename</h1>
+      <input
+        type="text"
+        required="required"
+        name="newname"
+        id="newname"
+        value="{{i.foldername}}"
+      />
+      <i></i>
+    </div>
+    <div class="subm">
+      <label for="{{i.foldername}}rename">
+        <span>Cancel</span>
+      </label>
+      <input type="submit" value="Rename" />
+    </div>
+  </form>
+
+  <script>
+
+    var checkbox = document.getElementById('{{i.foldername}}rename');
+    var checkbox2 = document.getElementById('{{i.foldername}}');
+
+    var targetElement = document.getElementById('{{i.foldername}}form');
+    var targetElement2 = document.getElementById('{{i.foldername}}formcover');
+    var targetElement3 = document.getElementById('{{i.foldername}}areacover');
+    var targetElement4 = document.getElementById('{{i.foldername}}');
+    checkbox.addEventListener('change', function() {
+      if (checkbox.checked) {
+        targetElement.style.display= 'inline-block';
+        targetElement2.style.display= 'block';
+      }
+      else{
+        targetElement.style.display= 'none';
+        targetElement2.style.display= 'none';
+        targetElement3.style.display= 'none';
+        targetElement4.checked= false;
+      }
+    });
+    checkbox2.addEventListener('change', function() {
+      if(checkbox2.checked){
+        targetElement3.style.display='block';
+      }
+      else{
+        targetElement3.style.display='none';
+      }
+    });
+
+  </script>
+  {% endfor %} {% for i in files %}
+  <div class="folder">
+    <a href="">
+      {% if 'Image' in i.file_type %}
+      <i class="fa-solid fa-image"></i>
+      {% elif 'Video' in i.file_type %}
+      <i class="fa-solid fa-film"></i>
+      {% elif 'PDF' in i.file_type %}
+      <i class="fa-solid fa-file-pdf"></i>
+      {% else %}
+      <i class="fa-solid fa-file"></i>
+      {% endif %}
+      <h3>{{i.filename}}</h3>
+    </a>
+    <input type="checkbox" id="{{i.split_value}}" />
+    <span class="opt">
+      <label for="{{i.split_value}}" class=".opt"><i class="fa-solid fa-ellipsis-vertical"></i></label>
+    </span>
+    <ul class="option_list">
+      {% if not i.favouriteFile%} 
+      <li><a href="{% url 'toggleFavoriteFile' i.id %}">Add to Favourites</a></li>
+      {% else %}
+      <li><a href="{% url 'toggleFavoriteFile' i.id %}">Remove from Favourites</a></li>
+      {% endif %}
+      <li>
+        <input type="checkbox" id="{{i.split_value}}rename">
+        <label for="{{i.split_value}}rename">Rename</label>
+      </li>
+      <li><a href="{% url 'delete_file' i.id %}">Delete</a></li>
+      <li><a href="{% url 'download_file' file_id=i.id %}" download="{{ i.filename }}">Download</a></li>
+      {% if i.publicFolder %}
+      <li><a href="{% url 'togglePublicFile' i.id %}">Make it private</a></li>
+      {% else %}
+      <li><a href="{% url 'togglePublicFile' i.id %}">Add to shared</a></li>
+      {% endif %}
+    </ul>
+  </div>
+  <div id="{{i.split_value}}areacover" class="areacover">
+    <label for="{{i.split_value}}"></label>
+  </div>
+  <div id="{{i.split_value}}formcover" class="formcover">
+    <label for="{{i.split_value}}rename"></label>
+  </div>
+  <form
+    action="{% url 'toggleRenameFile' i.id %}"
+    method="POST"
+    id="{{i.split_value}}form"
+  >
+    {% csrf_token %}
+    <div class="inputbox">
+      <h1>Rename</h1>
+      <input
+        type="text"
+        required="required"
+        name="newname"
+        id="newname"
+        value="{{i.filename}}"
+      />
+      <i></i>
+    </div>
+    <div class="subm">
+      <label for="{{i.split_value}}rename">
+        <span>Cancel</span>
+      </label>
+      <input type="submit" value="Rename" />
+    </div>
+  </form>
+
+  <script>
+
+    var check = document.getElementById('{{i.split_value}}rename');
+    var check2 = document.getElementById('{{i.split_value}}');
+
+    var Element = document.getElementById('{{i.split_value}}form');
+    var Element2 = document.getElementById('{{i.split_value}}formcover');
+    var Element3 = document.getElementById('{{i.split_value}}areacover');
+    var Element4 = document.getElementById('{{i.split_value}}');
+    check.addEventListener('change', function() {
+      if (check.checked) {
+        Element.style.display= 'inline-block';
+        Element2.style.display= 'block';
+      }
+      else{
+        Element.style.display= 'none';
+        Element2.style.display= 'none';
+        Element3.style.display= 'none';
+        Element4.checked= false;
+      }
+    });
+    check2.addEventListener('change', function() {
+      if(check2.checked){
+        Element3.style.display='block';
+      }
+      else{
+        Element3.style.display='none';
+      }
+    });
+  </script>
+  
+  {% endfor %}
+</div>
+{% endblock content %}
+

@@ -1,0 +1,775 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", Verdana, Geneva, Tahoma, sans-serif;
+  }
+  
+  body {
+    background-color: #23242a;
+    z-index: -1;
+  }
+  
+  .rect_up {
+    display: none;
+    position: fixed;
+    width: 252px;
+    background-color: #45f3ff;
+    height: 100%;
+    z-index: 1;
+    box-shadow: 1px 1px 9px 1px #45f3ff;
+  }
+  .logo {
+    display: none;
+    position: fixed;
+    background-color: #1c1c1c;
+    z-index: 2;
+    color: #45f3ff;
+    float: left;
+    overflow: hidden;
+  }
+  
+  .rect {
+    position: fixed;
+    width: 252px;
+    background-color: #45f3ff;
+    height: 100%;
+    z-index: 1;
+    box-shadow: 1px 1px 9px 1px #45f3ff;
+  }
+  .navbar {
+    position: fixed;
+    display: flex;
+    width: 250px;
+    height: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #1c1c1c;
+    z-index: 2;
+    color: #45f3ff;
+    float: left;
+    overflow: hidden;
+  }
+  .navbar img {
+    width: 80px;
+    height: 80px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .navbar h2 {
+    margin-bottom: 30px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .navbar a {
+    text-decoration: none;
+    color: #45f3ff;
+    letter-spacing: 1px;
+    font-weight: 1000;
+    transition: 0.4s;
+    transition-property: background, color;
+    display: block;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 65px;
+    width: 100%;
+  }
+  
+  .navbar a:hover {
+    background-color: #45f3ff;
+    color: #1c1c1c;
+  }
+  
+  .navbar a:active {
+    background-color: #45f3ff;
+    color: #1c1c1c;
+  }
+  
+  .content {
+    position: absolute;
+    height: 100%;
+    width: 82.5%;
+    left: 265px;
+    display: flex;
+    flex-wrap: wrap;
+    z-index: 0;
+  }
+  
+  .folder {
+    position: relative;
+    flex-basis: 250px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    height: 230px;
+    margin: 2%;
+  }
+  .folder .fa-folder {
+    z-index: 2;
+    font-size: 240px;
+    color: #1c1c1c;
+    transition: 0.4s;
+    /* transition-property: color; */
+    text-shadow: 1px 1px 9px #45f3ff;
+  }
+  .folder .fa-solid:hover {
+    text-shadow: 1px 1px 30px #45f3ff;
+  }
+  
+  .folder h3 {
+    display: inline-block;
+    color: #45f3ff;
+    opacity: 0.8;
+    text-align: center;
+    font-weight: 500;
+    width: 85%;
+  }
+  .folder i {
+    display: inline-block;
+    bottom: 0;
+    right: 0;
+  }
+  
+  .folder label {
+    cursor: pointer;
+    display: inline-block;
+    width: 10%;
+    text-align: center;
+    color: #45f3ff;
+    opacity: 0.8;
+    border-radius: 8px;
+  }
+  .option_list {
+    display: none;
+    background-color: #1c1c1c;
+    z-index: 12;
+    list-style-type: none;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border-radius: 8px;
+    box-shadow: 1px 1px 9px #45f3ff;
+  }
+  
+  .option_list li a {
+    text-decoration: none;
+    color: #45f3ff;
+    transition: 0.3s;
+    display: block;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  .option_list li a:hover {
+    color: #1c1c1c;
+    background-color: #45f3ff;
+  }
+  
+  #options {
+    display: none;
+  }
+  
+  #options:checked ~ .option_list {
+    display: inline-block;
+  }
+  
+  #options:checked ~ .blur {
+    display: block;
+  }
+  
+  .blur {
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    position: fixed;
+    backdrop-filter: blur(10px);
+    z-index: 4;
+  }
+  .blur label {
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+  #adder {
+    z-index: 3;
+    display: none;
+  }
+  
+  .addF {
+    display: none;
+    position: fixed;
+    width: 30%;
+    height: 20%;
+    background-color: #1c1c1c;
+    z-index: 6;
+    color: #45f3ff;
+    border-radius: 8px;
+    box-shadow: 1px 1px 9px 1px #45f3ff;
+    top: 10%;
+    left: 33.3%;
+  }
+  .addF Form {
+    display: none;
+    position: fixed;
+    height: 18%;
+    width: 28%;
+  }
+  .addF .inputbox {
+    position: relative;
+    height: 50%;
+    width: 100%;
+    margin-left: 10%;
+  }
+  
+  .addF .inputbox h1 {
+    margin-top: 5%;
+    font-weight: 500;
+  }
+  
+  .addF .inputbox input[type="text"] {
+    position: absolute;
+    width: 80%;
+    height: 40%;
+    background: transparent;
+    bottom: 0;
+    border: none;
+    outline: none;
+    color: #1c1c1c;
+    z-index: 12;
+    font-size: 1.2em;
+    /* pointer-events: none; */
+  }
+  
+  .addF .inputbox i {
+    position: absolute;
+    width: 80%;
+    height: 2%;
+    left: 0;
+    bottom: 0;
+    background: #45f3ff;
+    transition: 0.4s;
+    border-radius: 4px;
+  }
+  
+  .addF .inputbox input[type="text"]:valid ~ .inputbox i,
+  .addF .inputbox input[type="text"]:focus ~ .inputbox i {
+    height: 40%;
+  }
+  .subm {
+    position: absolute;
+    margin-left: 10%;
+    width: 80%;
+    height: 30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 3%;
+  }
+  
+  .subm input[type="submit"] {
+    color: #45f3ff;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    padding-bottom: 12%;
+  }
+  .subm input[type="submit"]:hover,
+  .subm label:hover {
+    opacity: 0.8;
+    cursor: pointer;
+  }
+  
+  .add {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 50px;
+    right: 50px;
+    border-radius: 20px;
+    background-color: #1c1c1c;
+    font-size: 200%;
+    color: #45f3ff;
+    box-shadow: 1px 1px 9px 1px #45f3ff;
+    z-index: 3;
+    transition: 0.4s;
+  }
+  
+  .add .fa-solid {
+    padding: 25%;
+  }
+  
+  .add:hover {
+    text-shadow: 1px 1px 30px #45f3ff;
+  }
+  
+  #adder:checked ~ .addF {
+    display: flex;
+    flex-direction: column;
+  }
+  #adder:checked ~ .blur1 {
+    display: block;
+  }
+  
+  #createF,
+  #uploadF,
+  #uploadf {
+    display: none;
+  }
+  
+  .sec {
+    display: block;
+    /* flex-direction: row; */
+    position: fixed;
+    height: 20%;
+    width: 30%;
+  }
+  .add1,
+  .add2,
+  .add3 {
+    position: relative;
+    height: 100%;
+    width: 33.3%;
+  }
+  .add1,
+  .add2 {
+    float: left;
+  }
+  .add3 {
+    float: right;
+  }
+  .sec label {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  .sec label span {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 600%;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    cursor: pointer;
+  }
+  #createF:checked ~ .create_f {
+    display: inline-block;
+  }
+  #createF:checked ~ .sec {
+    display: none;
+  }
+  #uploadF:checked ~ .upload_F {
+    display: inline-block;
+  }
+  #uploadF:checked ~ .sec {
+    display: none;
+  }
+  
+  #uploadf:checked ~ .upload_f {
+    display: inline-block;
+  }
+  #uploadf:checked ~ .sec {
+    display: none;
+  }
+  
+  .upload h1 {
+    font-weight: 500;
+    padding-left: 10%;
+    padding-top: 5%;
+  }
+  .upload input {
+    display: inline-block;
+    margin-left: 10%;
+    margin-top: 5%;
+  }
+  
+  .upload input[type="submit"] {
+    color: #45f3ff;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+  }
+  
+  .upload input[type="submit"]:hover {
+    opacity: 0.8;
+    cursor: pointer;
+  }
+  
+  /*  */
+  
+  
+  .add{
+    display: none;
+  }
+  .pagep{
+    position: absolute;
+    top: 2.5%;
+    left: 2.5%;
+    width: 95%;
+    height: 95%;
+    background-color: #1c1c1c;
+    box-shadow: 1px 1px 9px #45f3ff;
+    border-radius: 18px;
+    z-index: 4;
+  }
+  
+  .user{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+  }
+  .details{
+    width: 65%;
+    border-radius: 18px;
+    padding: 5%;
+    color: #3ECAD4;
+    position: relative;
+  }
+  .ushead{
+    height: 5%;
+  }
+  .details h1{
+    letter-spacing: 2.5px;
+    font-size: 2.5em;
+  }
+  .alldetails{
+    margin: 2.5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 90%;
+  }
+  .alldetails .pinputbox{
+    position: relative;
+    margin: 3% 0%;
+    height: 16.6%;
+  }
+  .alldetails .pinputbox span{
+    position: relative;
+    font-weight: 550;
+    font-size: 1.2em;
+    display: block;
+  }
+  .alldetails .pinputbox input{
+    background: transparent;
+    display: inline-block;
+    position: absolute;
+    bottom: 0px;
+    border: none;
+    outline: none;
+    width: 80%;
+    height: 50%;
+    padding-top: 1%;
+    color: #1c1c1c;
+    font-size: 1.1em;
+    z-index: 5;
+  }
+  
+  .alldetails .pinputbox i{
+    position: absolute;
+    width: 80%;
+    height: 50%;
+    left: 0;
+    bottom: 0;
+    background: #45f3ff;
+    transition: 0.4s;
+    border-radius: 4px;
+  }
+  .submit{
+    position: absolute;
+    /* bottom: 0; */
+    height: 5%;
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
+  .submit input{
+    position: relative;
+    border: none;
+    outline: none;
+    background-color: #45f3ff;
+    color: #1c1c1c;
+    height: 100%;
+    width: 40%;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 600;
+  }
+  .submit input:hover{
+    opacity: 0.8;
+    box-shadow: 1px 1px 9px #45f3ff;
+  }
+  .proimage{
+    width: 35%;
+  }
+  .subdiv{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: 1%;
+    left: 1.5%;
+    width: 97%;
+    height: 98%;
+    border-radius: 18px;
+    /* background-color: #3ECAD4; */
+    /* box-shadow: 1px 1px 4px #45f3ff; */
+    z-index: 5;
+  }
+  
+  .pdiv {
+    position: relative  ;
+    width: 250px;
+    height: 260px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* background-color: aliceblue; */
+  }
+  
+  .pdiv img{
+    position: relative;
+    width: 240px;
+    height: 240px;
+    border-radius: 100%;
+  }
+  .pdiv input{
+    display: none;
+  }
+  .pdiv label{
+    cursor: pointer;
+    position: relative;
+    height: 10px;
+    display: block;
+    padding-top: 6.66%;
+    font-weight: 600;
+    color:#3ECAD4;
+  }
+  .pdiv label:hover{
+    opacity: 0.5;
+  }
+  /*  */
+  #Profile {
+    background-color: #45f3ff;
+    color: #1c1c1c;
+  }
+  .messages{
+    list-style-type: none;
+    height: 5%;
+  }
+  .messages li{
+    color: red;
+  }
+  @media (max-width: 960px) {
+    .rect_up,
+    .logo {
+      display: flex;
+      position: fixed;
+      top: 0;
+      height: 7%;
+      width: 100vw;
+      padding: 0;
+    }
+  
+    .logo p {
+      margin: auto;
+      font-size: 5vh;
+      font-weight: bold;
+    }
+  
+    .navbar,
+    .rect {
+      bottom: 0;
+      height: 7%;
+      width: 100vw;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: none;
+      padding: 0;
+    }
+    .navbar a {
+      padding-left: 6%;
+      padding-bottom: 3%;
+      height: 100%;
+      font-size: 200%;
+    }
+    .navbar span {
+      display: none;
+    }
+    .navbar img,
+    .navbar h2 {
+      display: none;
+    }
+  
+    .navbar a {
+      display: inline-block;
+      width: 20%;
+    }
+    .navbar a:nth-child(3) {
+      order: 3;
+    }
+    .navbar a:nth-child(4) {
+      order: 1;
+    }
+    .navbar a:nth-child(5) {
+      order: 2;
+    }
+    .navbar a:nth-child(6) {
+      order: 4;
+    }
+    .navbar a:nth-child(7) {
+      order: 5;
+    }
+    .content {
+      top: 8%;
+      left: 0;
+      width: 100vw;
+      align-items: flex-start;
+    }
+    .folder {
+      position: relative;
+      flex-basis: 45vw;
+      height: 24vh;
+      text-align: center;
+    }
+    .folder .fa-solid {
+      position: relative;
+      font-size: 18vh;
+    }
+  
+    .add {
+      bottom: 10%;
+      right: 5%;
+    }
+  
+    .addF {
+      width: 80%;
+      height: 20%;
+      top: 30%;
+      left: 10%;
+    }
+    .addF Form {
+      height: 18%;
+      width: 78%;
+    }
+    .sec {
+      position: fixed;
+      height: 20%;
+      width: 80%;
+    }
+  
+  
+    /*  */
+    .pagep{
+      height: 86%;
+    }
+    .proimage{
+      width: 40%;
+    }
+    .details{
+      width: 60%;
+      padding: 2%;
+    }
+    .ushead{
+      height: 10%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .alldetails{
+      height: 80%;
+    }
+    .submit input{
+      width: 50%;
+    }
+    .alldetails .pinputbox input{
+      width: 100%;
+    }
+    .alldetails .pinputbox i{
+      width: 100%;
+    }
+    .details .submit{
+      position: relative;
+      width: 100%;
+    }
+    /*  */
+  }
+  
+  @media (max-width: 600px) {
+    /*  */
+    .content{
+      height: 86%;
+    }
+    .pagep{
+      height: 150%;
+    }
+    .user{
+      flex-direction: column;
+    }
+    .details{
+      position: absolute;
+      height: 80%;
+      width: 100%;
+      top: 25vh;
+      /* bottom: 10vh; */
+    }
+  
+    .ushead{
+      height: 15%;
+    }
+    .alldetails{
+      justify-content: initial;
+      position: relative;
+      height: 70%;
+    }
+    .alldetails .pinputbox input,.alldetails .pinputbox i{
+      width: 100%;
+    }
+    .alldetails .pinputbox i{
+      bottom: 0;
+    }
+    .submit{
+      position: relative;
+      width: 100%;
+    }
+    .submit input{
+      width: 70%;
+    }
+    .proimage{
+      position: absolute;
+      width: 100%;
+      height: 20%;
+      top: 0;
+    }
+    .subdiv{
+      background: transparent;
+      box-shadow: none;
+    }
+    .pdiv{
+      /* flex-direction: row; */
+      width: 50%;
+      height: 100%;
+    }
+    .pdiv img{
+      padding-top: 2%;
+      height: 80%;
+      width: 100%;
+    }
+    .pdiv label{
+      font-weight: 100;
+      height: 20%;
+      padding-top: 0%;
+    }
+    /*  */
+  }
+  

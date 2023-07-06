@@ -1,0 +1,135 @@
+{% extends 'home/base.html'%}
+
+{% block inline_css %}
+  {% if title == "Home"%}
+    #Home {
+      background-color: #45f3ff;
+      color: #1c1c1c;
+    }
+  {% elif title == "Favourite" %}
+    #Favourite {
+      background-color: #45f3ff;
+      color: #1c1c1c;
+    }
+
+  {% endif %}
+
+  .add{
+    display:none;
+  }
+  .opt{
+    transition:0.5s;
+    border-radius:100%;
+  }
+  .opt:hover{
+    background-color: #45f3ff;
+    color: #1c1c1c;
+  }
+
+  {% for i in folder%}
+    #{{i.foldername}} {
+      display: none;
+    }
+    
+    #{{i.foldername}}:checked ~ .option_list {
+      display: inline-block;
+    }
+    #{{i.foldername}}areacover {
+      display: none;
+    }
+  {% endfor %}
+  
+  {% for i in files %}
+    #{{i.split_value}} {
+      display: none;
+    }
+    
+    #{{i.split_value}}:checked ~ .option_list {
+      display: inline-block;
+    }
+    #{{i.split_value}}areacover {
+      display: none;
+    }
+  {% endfor %}
+{% endblock%}
+
+{% block content %}
+<div class="content">
+  {% for i in folder %}
+  
+  <div class="folder">
+    <a href="{% url 'sharedfolder' i.id user_id %}">
+      <i class="fa-solid fa-folder"></i>
+      <h3>{{i.foldername}}</h3>
+    </a>
+    <input type="checkbox" id="{{i.foldername}}" />
+    <span class="opt">
+      <label for="{{i.foldername}}"><i class="fa-solid fa-ellipsis-vertical"></i></label>
+    </span>
+    <ul class="option_list">
+      <li><a href="{% url 'download_shared_folder' folder_id=i.id user_id=user_id %}">Download</a></li>
+    </ul>
+  </div>
+  <div id="{{i.foldername}}areacover" class="areacover">
+    <label for="{{i.foldername}}"></label>
+  </div>
+
+  <script>
+    var check=document.getElementById('{{i.foldername}}');
+    var area=document.getElementById('{{i.foldername}}areacover');
+
+    check.addEventListener('change',function(){
+        if (check.checked){
+            area.style.display='block';
+        }
+        else{
+            area.style.display='none';
+        }
+    });
+
+  </script>
+  {% endfor %} {% for i in files %}
+  <div class="folder">
+    <a href="">
+      {% if 'Image' in i.file_type %}
+      <i class="fa-solid fa-image"></i>
+      {% elif 'Video' in i.file_type %}
+      <i class="fa-solid fa-film"></i>
+      {% elif 'PDF' in i.file_type %}
+      <i class="fa-solid fa-file-pdf"></i>
+      {% else %}
+      <i class="fa-solid fa-file"></i>
+      {% endif %}
+      <h3>{{i.filename}}</h3>
+    </a>
+    <input type="checkbox" id="{{i.split_value}}" />
+    <span class="opt">
+      <label for="{{i.split_value}}" class=".opt"><i class="fa-solid fa-ellipsis-vertical"></i></label>
+    </span>
+    <ul class="option_list">
+      <li><a href="{% url 'download_shared_file' file_id=i.id  user_id=user_id %}" download="{{ i.filename }}">Download</a></li>
+    </ul>
+  </div>
+  <div id="{{i.split_value}}areacover" class="areacover">
+    <label for="{{i.split_value}}"></label>
+  </div>
+
+  <script>
+    var check=document.getElementById('{{i.split_value}}');
+    var area=document.getElementById('{{i.split_value}}areacover');
+
+    check.addEventListener('change',function(){
+        if (check.checked){
+            area.style.display='block';
+        }
+        else{
+            area.style.display='none';
+        }
+    });
+
+  </script>
+  
+  {% endfor %}
+</div>
+{% endblock content %}
+

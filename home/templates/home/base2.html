@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% if title %}
+    <title>{{title}}</title>
+    {% else %}
+    <title></title>
+    {% endif %}
+    <link rel="stylesheet" href="{% static 'profile.css' %}" />
+    <link rel="icon" href="{% static 'logo.png' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+    />
+    <style>
+      {% block inline_css%}
+      {% endblock %}
+    </style>
+  </head>
+  <body>
+    <input type="checkbox" id="adder" />
+    <div class="rect_up"></div>
+    <div class="logo">
+      <p>U-DRIVE</p>
+    </div>
+    <div class="rect"></div>
+    <div class="navbar">
+      <img src="{% static 'logo.png' %}" alt="logo" />
+      <h2>U-Drive</h2>
+      <a href="{% url 'Home'%}" id="Home"
+        ><i class="fa-solid fa-house"></i><span>Home</span></a
+      >
+      <a href="{% url 'favourites' %}" id="Favourite"><i class="fa-solid fa-star"> </i><span>Favourites</span></a>
+      <a href="{% url 'allusers' %}" id="User"><i class="fa-solid fa-users"></i>All Users</span></a>
+      <a href="{% url 'profile' %}" id="Profile"><i class="fa-solid fa-id-card"></i><span>Profile</span></a>
+      <a href="{% url 'Logout'%}"
+        ><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a
+      >
+    </div>
+    {% block content %}
+    {% endblock %}
+  </body>
+</html>

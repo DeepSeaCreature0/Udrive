@@ -1,0 +1,98 @@
+{% extends 'home/base2.html'%}
+
+{% block content %}
+<div class="content">
+    <div class="pagep">
+        <form action="{% url 'profile_update' %}" method="POST" class="user" enctype="multipart/form-data">
+            {% csrf_token %}
+        <div class="details">
+            <div class="ushead">
+            <h1>Profile Settings</h1>
+        </div>
+        <div class="alldetails">
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+            <div class="pinputbox uname">
+                <span>Username</span>
+                <input
+                type="text"
+                name="username"
+                id="username"
+                value="{{user.username}}"
+                />
+                <i></i>
+            </div>
+            <div class="pinputbox fn">
+                <span>First Name</span>
+                <input
+                type="text"
+                name="fname"
+                id="fname"
+                value="{{user.first_name}}"
+                />
+                <i></i>
+            </div>
+            <div class="pinputbox ln">
+                <span>Last Name</span>
+                <input
+                type="text"
+                name="lname"
+                id="lname"
+                value="{{user.last_name}}"
+            />
+            <i></i>
+            </div>
+            <div class="pinputbox eml">
+            <span>Email</span>
+            <input
+            type="text"
+                name="email"
+                id="email"
+                value="{{user.email}}"
+            />
+            <i></i>
+            </div>
+            <div class="pinputbox pwd">
+            <span>Change Password</span>
+            <input
+            type="password"
+            name="password"
+            id="password"
+            />
+            <i></i>
+            </div>
+            <div class="pinputbox cpwd">
+            <span>Confirm Password</span>
+            <input
+            type="password"
+            name="cpassword"
+                id="cpassword"
+            />
+            <i></i>
+            </div>
+            </div>
+            <div class="submit">
+            <input type="submit" value="Apply Changes">
+            </div>
+        </div>
+        <div class="proimage">
+            <div class="subdiv">
+            <div class="pdiv">
+                <img src="{{user.profile.image.url}}" alt="" class="profile_pic">
+                <input type="file" name="p_img" id="p_img">
+                <label for="p_img">
+                Change Photo
+                </label>
+            </div>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+{%endblock%}

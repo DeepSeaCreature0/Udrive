@@ -1,0 +1,167 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% if title %}
+    <title>{{title}}</title>
+    {% else %}
+    <title></title>
+    {% endif %}
+    <link rel="stylesheet" href="{% static 'home.css' %}" />
+    <link rel="icon" href="{% static 'logo.png' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+    />
+    <style>
+      {% block inline_css%}
+      {% endblock %}
+    </style>
+  </head>
+  <body>
+    <input type="checkbox" id="adder" />
+    <div class="rect_up"></div>
+    <div class="logo">
+      <p>U-DRIVE</p>
+    </div>
+    <div class="rect"></div>
+    <div class="navbar">
+      <img src="{% static 'logo.png' %}" alt="logo" />
+      <h2>U-Drive</h2>
+      <a href="{% url 'Home'%}" id="Home"
+        ><i class="fa-solid fa-house"></i><span>Home</span></a
+      >
+      <a href="{% url 'favourites' %}" id="Favourite"><i class="fa-solid fa-star"> </i><span>Favourites</span></a>
+      <a href="#" id="User"><i class="fa-solid fa-user"></i><span>All Users</span></a>
+      <a href="#" id="Profile"><i class="fa-solid fa-id-card"></i><span>Profile</span></a>
+      <a href="{% url 'Logout'%}"
+        ><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a
+      >
+    </div>
+    {% block content %}
+    {% endblock %}
+    <div class="blur">
+      <label for="adder"></label>
+    </div>
+    <div class="addF">
+      <input type="checkbox" id="createF" />
+      <input type="checkbox" id="uploadF" />
+      <input type="checkbox" id="uploadf" />
+      <div class="sec">
+        <div class="add1">
+          <label for="createF">
+            <br />
+            <span class="material-symbols-outlined" title="Create New Folder">
+              create_new_folder
+            </span>
+          </label>
+        </div>
+        <div class="add2">
+          <label for="uploadF">
+            <br />
+            <span class="material-symbols-outlined" title="Upload Folder">
+              drive_folder_upload
+            </span>
+          </label>
+        </div>
+        <div class="add3">
+          <label for="uploadf">
+            <br />
+            <span class="material-symbols-outlined" title="Upload File">
+              upload_file
+            </span>
+          </label>
+        </div>
+      </div>
+      <form
+        {% if parent_id %}
+        action="{% url 'add_subfolder' parent_id %}"
+        {% else %}
+        action="{% url 'addFolder' %}"
+        {% endif %}
+        method="POST"
+        class="create_f"
+      >
+        {% csrf_token %}
+        <div class="inputbox">
+          <h1>Create Folder</h1>
+          <input
+            type="text"
+            required="required"
+            name="foldername"
+            id="foldername"
+            value="Folder_Name"
+          />
+          <i></i>
+        </div>
+        <div class="subm">
+          <label for="adder">
+            <span>Cancel</span>
+          </label>
+          <input type="submit" value="Create" />
+        </div>
+      </form>
+      <form 
+      {% if parent_id %}
+        action=""
+      {% else %}
+        action=""
+      {% endif %}
+        method="POST" enctype="multipart/form-data"
+        class="upload_F upload"
+        >
+        {% csrf_token %}
+        <h1>Upload Folder:</h1>
+        <input
+          type="file"
+          id="folder"
+          name="folder"
+          webkitdirectory directory multiple required
+        />
+        <br />
+        <input type="submit" value="Upload Folder" />
+      </form>
+      <form
+        {% if parent_id %}
+        action="{% url 'uploadsubFile' parent_id %}"
+        {% else %}
+        action="{% url 'uploadFile' %}"
+        {% endif %}
+        method="POST"
+        enctype="multipart/form-data"
+        class="upload_f upload"
+      >
+        {% csrf_token %}
+        <h1>Select File:</h1>
+        <input type="file" id="file" name="file" />
+        <br />
+        <input type="submit" value="Upload File" />
+      </form>
+    </div>
+    <div class="add">
+      <label for="adder">
+        <i class="fa-solid fa-plus"></i>
+      </label>
+    </div>
+    <script>
+      document.getElementById("adder").addEventListener("change", function () {
+        var addCheckbox = document.getElementById("adder");
+        var createFCheckbox = document.getElementById("createF");
+        var uploadFCheckbox = document.getElementById("uploadF");
+        var uploadfCheckbox = document.getElementById("uploadf");
+
+        if (!addCheckbox.checked) {
+          createFCheckbox.checked = false;
+          uploadFCheckbox.checked = false;
+          uploadfCheckbox.checked = false;
+        }
+      });
+    </script>
+  </body>
+</html>

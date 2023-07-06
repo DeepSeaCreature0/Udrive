@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'signup.css' %}" />
+    <link rel="icon" href="{% static 'logo.png' %}" />
+    <title>Signup</title>
+  </head>
+  <body>
+    <div class="box">
+      <div class="form">
+        <form action="{% url 'SignUp' %}" method="POST">
+          {% csrf_token %}
+          <h2>Sign Up</h2>
+
+          <div class="inputbox">
+            <input
+              type="text"
+              name="username"
+              id="username"
+              required="required"
+            />
+            <span>Username</span>
+            <i></i>
+          </div>
+
+          <div class="inputbox">
+            <input type="email" name="email" id="email" required="required" />
+            <span>Email</span>
+            <i></i>
+          </div>
+
+          <div class="inputbox">
+            <input type="text" required="required" name="fname" id="fname" />
+            <span>First Name</span>
+            <i></i>
+          </div>
+
+          <div class="inputbox">
+            <input type="text" name="lname" id="lname" required="required" />
+            <span>Last Name</span>
+            <i></i>
+          </div>
+
+          <div class="inputbox">
+            <input
+              type="password"
+              name="password"
+              id="password"
+              required="required"
+            />
+            <span>Password</span>
+            <i></i>
+          </div>
+
+          <div class="inputbox">
+            <input
+              type="password"
+              name="cpassword"
+              id="cpassword"
+              required="required"
+            />
+            <span>Confirm Password</span>
+            <i></i>
+          </div>
+
+          {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+          {% endif %}
+
+          <input type="submit" value="Sign Up" />
+
+          <div class="already">
+            <span
+              >Already Have An Account?&emsp;<a href="{% url 'Login'%}"
+                >Sign in</a
+              >
+            </span>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- <script>
+      alert({ messages });
+    </script> -->
+  </body>
+</html>
