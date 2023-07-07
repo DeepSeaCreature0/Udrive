@@ -40,8 +40,9 @@ After login the users are directed to Home page where the users can see their fi
 * Each file have and folder have icons according to their extension
 
 ### Landing Page
-![Landing Page]
-![mobile Landing Page] ![mobile Landing Page navbar]
+![Landing Page](https://github.com/DeepSeaCreature0/Udrive/assets/138828627/5cbd7eef-5163-4d4f-90ec-53c17c39dc30)
+![mobile Landing Page](https://github.com/DeepSeaCreature0/Udrive/assets/138828627/e6852a98-0b08-49e2-9fc9-ccf7788589e5) ![mobile Landing Page navbar](https://github.com/DeepSeaCreature0/Udrive/assets/138828627/48bea4bf-960a-4eac-af4a-8a3ab8b867eb)
+
 
 ### Register Page
 * New Users have to register ,they can use any mail to register but the username must should be unique.
