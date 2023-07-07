@@ -1,7 +1,7 @@
 # Udrive
 Cloud based storage website with django framework
 
-# About
+## About
 Users are directed to landing page on opening the website.Unregisteres users are redirected to register page ,after registering they are redirected to login page.
 After login the users are directed to Home page where the users can see their files and folders in the root directory.The navbar contain 5 tabs :
 *  Home
@@ -10,17 +10,70 @@ After login the users are directed to Home page where the users can see their fi
 *  Profile
 *  Logout
 
-# Environment Setup
+## Environment Setup
 
-*  Install Django
-*  Install all the required pacakges mentioned in the requirements.txt using the command pip install -r requirements.txt
+*  Install [Django](https://docs.djangoproject.com/en/3.2/topics/install/)
+*  Install all the required pacakges mentioned in the req.txt using the command pip install -r requirements.txt
 *  Run the server and Connect the port to localhost:8000
 
-# Tech Stacks Used
+## Tech Stacks Used
 
 *  HTML
 *  CSS
 *  Django
 *  JavaScript
+
+## Key features
+
+* Responsive website
+* User can register using any Email ID.
+* User can create Folders and upload Files.
+* User can search other user using Searchbar.
+* User can make their files and folder public to share among users
+* User can browse and download all shared files and folders of other users.
+* User can download the folders as zip.
+* User can add their favourite files and folder to Favourites tab.
+* User can delete their files and folder.
+* User can rename their files and folder.
+* User can change their profile details from username to password.
+* Each user have a default profile image.
+* Each file have and folder have icons according to their extension
+
+### Landing Page
+![Landing Page]
+![mobile Landing Page] ![mobile Landing Page navbar]
+
+### Register Page
+* New Users have to register ,they can use any mail to register but the username must should be unique.
+![Register Page]
+![mobile Register Page]
+
+### Login Page
+* User have to login after registration. The web application is authenticated and user must sign in using his username created in Register Page. 
+![Login Page]
+![mobile Login Page]
+
+### Home Page
+* After login user willl be redirected to Home tab where they can see all the files and folder in the root directory
+![Home Page]
+![mobile Home Page]
+
+### Favourites Page
+* In this tab user will find all its favourite files and folders
+![Fav Page]
+![mobile Fav Page]
+
+### All Users Page
+* In this tab user will find all the registered users.
+* User can find their target user  using a searchbar.
+![All Users]
+![mobile All Users]
+
+### Profile Page
+* This tab contain all the information about user and the user can update his/her profile from username to password .
+![Profile Page]
+![mobile Profile Page]
+
+
 
 
